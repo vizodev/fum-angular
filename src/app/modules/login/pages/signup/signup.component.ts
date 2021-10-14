@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterService } from 'src/app/core/router.service';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
+  error: string = '';
 
-  constructor() { }
+  constructor(private router: RouterService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+  
+  signin() {
+    this.router.signin();
   }
-
 }

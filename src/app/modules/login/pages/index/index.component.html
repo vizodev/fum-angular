@@ -1,1 +1,69 @@
-<p>index works!</p>
+<div class="container">
+  <div class="row ml-5">
+    <div class="col row">
+      <div class="col mt-5">
+        <h1 class="fs-50 mt-5"><b>Signup</b> to Fum</h1>
+      </div>
+
+      <div class="w-100 mb-5"></div>
+
+      <div class="col login-method pointer" (click)="email()">
+        <div class="d-flex align-items-center">
+          <div class="s">
+            <img class="img-fluid" src="../../../../../assets/icon/mail.svg" />
+          </div>
+          <div class="mx-3">
+            <p class="mb-0">Email</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-100 my-3"></div>
+
+      <div class="col login-method pointer" (click)="facebook()">
+        <div class="d-flex align-items-center">
+          <div class="icon d-flex justify-content-center">
+            <img
+              class="img-fluid"
+              src="../../../../../assets/icon/facebook.svg"
+            />
+          </div>
+          <div class="mx-3">
+            <p class="mb-0">Facebook</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-100 my-3"></div>
+
+      <div class="col login-method pointer" (click)="google()">
+        <div class="d-flex align-items-center">
+          <div class="icon">
+            <img
+              class="img-fluid"
+              src="../../../../../assets/icon/google.svg"
+            />
+          </div>
+          <div class="mx-3">
+            <p class="mb-0">Google</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-100 my-3"></div>
+
+      <div class="fit-content ms-5">
+        <button class="btn bg-blue-dark fs-26" type="button" (click)="login()">
+          I'm a User
+        </button>
+      </div>
+
+      <div class="w-100 my-3"></div>
+      <div class="w-100 my-3"></div>
+      <div class="w-100 my-3"></div>
+      <div class="w-100 my-3"></div>
+    </div>
+
+    <div class="col"></div>
+  </div>
+</div>

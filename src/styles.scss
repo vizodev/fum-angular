@@ -1,5 +1,5 @@
 :root {
-  --blue: #007bff;
+  --c: #007bff;
   --indigo: #674eec;
   --purple: #8445f7;
   --pink: #ff4169;
@@ -20,6 +20,7 @@
   --danger: #c4183c;
   --light: #fbfbfb;
   --dark: #212529;
+  --blue-dark: #3d5170;
   --breakpoint-xs: 0;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
@@ -4425,7 +4426,8 @@ a.bg-dark:hover {
 .font-weight-bold {
   font-weight: 500;
 }
-b, strong {
+b,
+strong {
   font-weight: 700 !important;
 }
 .text-primary {
@@ -7600,4 +7602,12 @@ html .ql-toolbar .ql-picker .ql-picker-options {
   .user-teams .card-body {
     min-height: 21rem;
   }
+}
+//My style
+.pointer {
+  cursor: pointer;
+}
+
+.fs-50 {
+  font-size: 50px;
 }

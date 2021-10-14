@@ -5,7 +5,7 @@ import { SigninComponent } from './pages/signin/signin.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { ForgotComponent } from './pages/forgot/forgot.component';
 import { IndexComponent } from './pages/index/index.component';
-import { Routes,RouterModule } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
@@ -13,12 +13,13 @@ const routes: Routes = [
     component: LoginComponent,
     children: [
       { path: 'register', component: SignupComponent },
-      { path: 'login', component: SigninComponent },
+      { path: 'signin', component: SigninComponent },
       { path: 'forgot', component: ForgotComponent },
-      { path: 'signin', component: IndexComponent },
+      { path: '', component: IndexComponent },
     ],
   },
 ];
+
 @NgModule({
   declarations: [
     LoginComponent,
@@ -27,6 +28,6 @@ const routes: Routes = [
     ForgotComponent,
     IndexComponent,
   ],
-  imports: [CommonModule,RouterModule],
+  imports: [CommonModule, RouterModule.forChild(routes)],
 })
 export class LoginModule {}
