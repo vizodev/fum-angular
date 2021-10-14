@@ -1,0 +1,49 @@
+<div
+  class="container-fluid"
+  [class.icon-sidebar-nav]="sidebarStyle === 'expanded'"
+>
+  <div class="row">
+    <ng-container
+      *ngIf="sidebarStyle !== 'headerbar'; else headerBarLayoutTemplate"
+    >
+      <app-sidebar [sidebarStyle]="sidebarStyle"></app-sidebar>
+      <main
+        class="main-content"
+        [ngClass]="
+          sidebarStyle === 'collapsed'
+            ? 'col'
+            : 'col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3'
+        "
+      >
+        <app-navbar></app-navbar>
+        <!-- <app-alert></app-alert> -->
+        <ng-container *ngTemplateOutlet="mainContainerTemplate"></ng-container>
+        <app-footer></app-footer>
+      </main>
+    </ng-container>
+    <ng-template #headerBarLayoutTemplate>
+      <main class="main-content col-lg-12 col-md-12 col-sm-12 p-0">
+        <app-navbar
+          [isSticky]="false"
+          [isCentered]="true"
+          [showBrand]="true"
+        ></app-navbar>
+        <app-sidebar [style]="sidebarStyle"></app-sidebar>
+        <!-- <alert></alert> -->
+        <ng-container *ngTemplateOutlet="mainContainerTemplate"></ng-container>
+        <app-footer></app-footer>
+      </main>
+    </ng-template>
+  </div>
+</div>
+
+<ng-template #mainContainerTemplate>
+  <div
+    class="main-content-container"
+    [ngClass]="
+      sidebarStyle === 'headerbar' ? 'container' : 'container-fluid px-4'
+    "
+  >
+    <ng-content></ng-content>
+  </div>
+</ng-template>
