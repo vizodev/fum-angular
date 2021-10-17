@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { OrganizationsRoutingModule } from './organizations-routing.module';
 import { OrganizationsComponent } from './organizations.component';
+import { LayoutModule } from 'src/app/shared/components/layout/layout.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { OrganizationsComponent } from './organizations.component';
   ],
   imports: [
     CommonModule,
-    OrganizationsRoutingModule
+    OrganizationsRoutingModule,
+    LayoutModule
   ]
 })
 export class OrganizationsModule { }

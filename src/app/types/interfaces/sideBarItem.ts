@@ -3,6 +3,7 @@ export interface SidebarItem {
   icon?: string;
   childrens?: SidebarItemChildren[];
   isActive?: boolean;
+  router: string;
   isHidden?: () => boolean;
 }
 
