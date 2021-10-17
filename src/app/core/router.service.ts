@@ -47,6 +47,9 @@ export class RouterService {
   forgotPassword() {
     return this.navigateByUrl('login/forgot');
   }
+  home() {
+    return this.navigateByUrl('/home');
+  }
 }
 function tap(arg0: (event: Event) => void): import("rxjs").OperatorFunction<import("@angular/router").Event, unknown> {
   throw new Error('Function not implemented.');

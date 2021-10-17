@@ -13,12 +13,12 @@ export class SidebarComponent implements OnInit {
   @Input() sidebarStyle: SidebarStyle = 'expanded';
 
   items: SidebarItem[] = [
-    { label: 'Home', icon: '&#xE917;' },
-    { label: 'Users', icon: '&#xE917;' },
-    { label: 'Organizations', icon: '&#xE917;' },
-    { label: 'Team', icon: '&#xE917;' },
-    { label: 'Permissions', icon: '&#xE917;' },
-    { label: 'Roles', icon: '&#xE917;' },
+    { label: 'Home', icon: '&#xE917;', router: '/' },
+    { label: 'Users', icon: '&#xE917;', router: '/users' },
+    { label: 'Organizations', icon: '&#xE917;', router: '/organizations' },
+    { label: 'Team', icon: '&#xE917;', router: '/teams' },
+    { label: 'Permissions', icon: '&#xE917;', router: '/permissions' },
+    { label: 'Roles', icon: '&#xE917;', router: '/roles' },
   ];
   constructor(private router: RouterService) {}
 
@@ -28,7 +28,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {}
   dashboard() {}
-  
+
   toggle() {
     toggleSidebar();
   }

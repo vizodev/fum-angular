@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PermissionsRoutingModule } from './permissions-routing.module';
 import { PermissionsComponent } from './permissions.component';
+import { LayoutModule } from 'src/app/shared/components/layout/layout.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { PermissionsComponent } from './permissions.component';
   ],
   imports: [
     CommonModule,
-    PermissionsRoutingModule
+    PermissionsRoutingModule,
+    LayoutModule
   ]
 })
 export class PermissionsModule { }

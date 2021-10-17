@@ -23,13 +23,16 @@
             <span
               class="d-none"
               [ngClass]="{ 'd-md-inline ml-1': sidebarStyle !== 'collapsed' }"
-              >FireAdmin</span
+              >Firebase User Management</span
             >
           </div>
         </a>
-        <a class="toggle-sidebar d-sm-inline d-md-none d-lg-none" (click)="toggle()">
-            <i class="material-icons">&#xE5C4;</i>
-          </a>
+        <a
+          class="toggle-sidebar d-sm-inline d-md-none d-lg-none"
+          (click)="toggle()"
+        >
+          <i class="material-icons">&#xE5C4;</i>
+        </a>
       </nav>
     </div>
     <div class="nav-wrapper">
@@ -53,7 +56,9 @@
 <ng-template #navItemsTemplate>
   <ul
     class="nav flex-column"
-    [ngClass]="{ 'nav-tabs border-0 flex-lg-row': sidebarStyle === 'headerbar' }"
+    [ngClass]="{
+      'nav-tabs border-0 flex-lg-row': sidebarStyle === 'headerbar'
+    }"
   >
     <ng-container *ngFor="let item of items">
       <ng-container *ngIf="item.childrens?.length; else singleItemTemplate">
@@ -71,7 +76,7 @@
             aria-expanded="true"
           >
             <i class="material-icons" [innerHTML]="item.icon"></i>
-            <span>{{ item.label }}</span>
+            <span>{{ item.label }} </span>
           </a>
           <div
             class="dropdown-menu dropdown-menu-small"
@@ -81,8 +86,8 @@
               *ngFor="let child of item.childrens"
               class="dropdown-item"
               routerLinkActive="active"
-              >{{ child.label }}</a
-            >
+              >{{ child.label }}
+            </a>
           </div>
         </li>
       </ng-container>
@@ -91,9 +96,10 @@
           <a
             class="nav-link"
             routerLinkActive="active"
+            [routerLink]="item.router"
           >
             <i class="material-icons" [innerHTML]="item.icon"></i>
-            <span>{{ item.label }}</span>
+            <span>{{ item.label }} </span>
           </a>
         </li>
       </ng-template>
