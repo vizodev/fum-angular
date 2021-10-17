@@ -1,34 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { OrganizationsComponent } from './organizations.component';
 import { EditComponent } from './pages/edit/edit.component';
 import { ListComponent } from './pages/list/list.component';
-import { ViewComponent } from './pages/view/view.component';
+import { SchemasComponent } from './schemas.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: OrganizationsComponent,
+    component: SchemasComponent,
     children: [
       {
         path: '',
         component: ListComponent,
       },
       {
-        path: 'new',
+        path: ':schemaId',
         component: EditComponent,
-      },
-      {
-        path: ':orgId/edit',
-        component: EditComponent,
-      },
-      {
-        path: ':orgId/view',
-        component: ViewComponent,
-      },
-      {
-        path: ':orgId',
-        component: ViewComponent,
       },
     ],
   },
@@ -38,4 +25,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class OrganizationsRoutingModule {}
+export class SchemasRoutingModule {}
