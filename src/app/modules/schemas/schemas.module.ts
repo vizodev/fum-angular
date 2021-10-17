@@ -1,23 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { UsersRoutingModule } from './users-routing.module';
-import { UsersComponent } from './users.component';
+import { SchemasRoutingModule } from './schemas-routing.module';
+import { SchemasComponent } from './schemas.component';
 import { ListComponent } from './pages/list/list.component';
-import { ViewComponent } from './pages/view/view.component';
 import { EditComponent } from './pages/edit/edit.component';
 
 
 @NgModule({
   declarations: [
-    UsersComponent,
+    SchemasComponent,
     ListComponent,
-    ViewComponent,
     EditComponent
   ],
   imports: [
     CommonModule,
-    UsersRoutingModule
+    SchemasRoutingModule
   ]
 })
-export class UsersModule { }
+export class SchemasModule { }
