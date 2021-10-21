@@ -1,12 +1,12 @@
 <!-- Main Navbar -->
 <div class="main-navbar bg-white" [class.sticky-top]="isSticky">
   <nav
-    class="navbar align-items-stretch navbar-light flex-md-nowrap p-0 "
+    class="navbar align-items-stretch navbar-light flex-md-nowrap p-0"
     [class.container]="isCentered"
   >
     <a
       *ngIf="showBrand"
-      class="navbar-brand "
+      class="navbar-brand"
       (click)="dashboard()"
       style="line-height: 25px"
     >
@@ -38,10 +38,10 @@
           <span class="d-none d-md-inline-block align-middle">User Name</span>
         </a>
         <div class="dropdown-menu dropdown-menu-small">
-          <a class="dropdown-item" (click)="profile()"
+          <a class="dropdown-item" routerLink="/profile" (click)="profile()"
             ><i class="material-icons">person</i> Profile</a
           >
-          <a class="dropdown-item" (click)="setting()"
+          <a class="dropdown-item" routerLink="/settings" (click)="setting()"
             ><i class="material-icons">&#xE8B8;</i> Settings</a
           >
           <div class="dropdown-divider"></div>

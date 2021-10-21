@@ -1,16 +1,19 @@
 <div
   class="container-fluid"
-  [class.icon-sidebar-nav]="sidebarStyle === 'collapsed'"
+  [class.icon-sidebar-nav]="sidebarStyle === SidebarStyle.collapsed"
 >
   <div class="row">
     <ng-container
-      *ngIf="sidebarStyle !== 'headerbar'; else headerBarLayoutTemplate"
+      *ngIf="
+        sidebarStyle !== SidebarStyle.headerbar;
+        else headerBarLayoutTemplate
+      "
     >
       <app-sidebar [sidebarStyle]="sidebarStyle"></app-sidebar>
       <main
         class="main-content"
         [ngClass]="
-          sidebarStyle === 'collapsed'
+          sidebarStyle === SidebarStyle.collapsed
             ? 'col'
             : 'col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3'
         "
@@ -41,7 +44,9 @@
   <div
     class="main-content-container"
     [ngClass]="
-      sidebarStyle === 'headerbar' ? 'container' : 'container-fluid px-4'
+      sidebarStyle === SidebarStyle.headerbar
+        ? 'container'
+        : 'container-fluid px-4'
     "
   >
     <ng-content></ng-content>

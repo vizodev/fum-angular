@@ -48,7 +48,16 @@ const routes: Routes = [
         (m) => m.SettingsModule
       ),
   },
-  { path: 'schemas', loadChildren: () => import('./modules/schemas/schemas.module').then(m => m.SchemasModule) },
+  {
+    path: 'profile',
+    loadChildren: () =>
+      import('./modules/profile/profile.module').then((m) => m.ProfileModule),
+  },
+  {
+    path: 'schemas',
+    loadChildren: () =>
+      import('./modules/schemas/schemas.module').then((m) => m.SchemasModule),
+  },
 ];
 
 @NgModule({

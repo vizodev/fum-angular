@@ -1,1 +1,5 @@
-export type SidebarStyle = 'expanded' | 'collapsed' | 'headerbar';
+export enum SidebarStyle {
+  'expanded',
+  'collapsed',
+  'headerbar',
+}

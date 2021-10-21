@@ -10,13 +10,58 @@ import { SidebarStyle } from '../../../types/enums/sideBarStyle';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-  @Input() sidebarStyle: SidebarStyle = 'expanded';
-
+  @Input() sidebarStyle: SidebarStyle = SidebarStyle.expanded;
+  SidebarStyle = SidebarStyle;
   items: SidebarItem[] = [
-    { label: 'Home', icon: '&#xE917;', router: '/' },
-    { label: 'Users', icon: '&#xE917;', router: '/users' },
-    { label: 'Organizations', icon: '&#xE917;', router: '/organizations' },
-    { label: 'Team', icon: '&#xE917;', router: '/teams' },
+    { label: 'Home', icon: '&#xE917;', router: '/', childrens: [] },
+    {
+      label: 'Users',
+      icon: '&#xE917;',
+      router: '/users',
+      childrens: [
+        {
+          label: 'List',
+          router: 'users',
+        },
+
+        {
+          label: 'Add',
+          router: 'users/new',
+        },
+      ],
+    },
+    {
+      label: 'Organizations',
+      icon: '&#xE917;',
+      router: '/organizations',
+      childrens: [
+        {
+          label: 'List',
+          router: 'organizations',
+        },
+
+        {
+          label: 'Add',
+          router: 'organizations/new',
+        },
+      ],
+    },
+    {
+      label: 'Team',
+      icon: '&#xE917;',
+      router: '/teams',
+      childrens: [
+        {
+          label: 'List',
+          router: 'teams',
+        },
+
+        {
+          label: 'Add',
+          router: 'teams/new',
+        },
+      ],
+    },
     { label: 'Permissions', icon: '&#xE917;', router: '/permissions' },
     { label: 'Roles', icon: '&#xE917;', router: '/roles' },
   ];
@@ -27,6 +72,11 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  navigateByUrl(url: string) {
+    return this.router.navigateByUrl(url);
+  }
+
   dashboard() {}
 
   toggle() {

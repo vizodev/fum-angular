@@ -1,0 +1,11 @@
+<div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+  <ng-container *ngFor="let option of options; let i = index">
+    <label
+      class="btn btn-white"
+      [class.active]="isActive(option, i)"
+      (click)="setValue(option, i)"
+    >
+      <input type="radio" [attr.checked]="isActive(option, i)" /> {{ option }}
+    </label>
+  </ng-container>
+</div>

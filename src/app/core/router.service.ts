@@ -6,26 +6,39 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class RouterService {
-  // route: string;
+  rootPath?: string;
 
-  // routeChangeSubject = new BehaviorSubject<{
-  //   previous: string | null;
-  //   current: string;
-  // }>({ previous: null, current: '/' });
+  constructor(public router: Router) {
+    this.rootPath = this.router.config[1].path;
+  }
 
-  constructor(private router: Router) {
-    // this.route = router.url;
-    // this.router.events
-    //   .pipe(
-    //     tap((event: Event) => {
-    //       if (event instanceof NavigationEnd)
-    //         this.routeChangeSubject.next({
-    //           previous: this.routeChangeSubject.value.current,
-    //           current: event.url,
-    //         });
-    //     })
-    //   )
-    //   .subscribe();
+  private getQueryParams(path: string): Object {
+    const queryParams = path.split('?')[1] || '';
+    const params = queryParams.length ? queryParams.split('&') : [];
+    let pair: any = null;
+    let data = {};
+    params.forEach((d) => {
+      pair = d.split('=');
+      data[`${pair[0]}`] = pair[1];
+    });
+    return data;
+  }
+
+  redirectTo(...path: string[]): void {
+    //console.log(path, this.getQueryParams(path[0]));
+    this.router.navigate(this.getRouterLink(...path), {
+      queryParams: this.getQueryParams(path[0]),
+    });
+  }
+
+  getRouterLink(...path: string[]): string[] {
+    const root: any = this.rootPath ? '/' + this.rootPath : [];
+    path = path.map((segment: string) => segment.split('?')[0]); // clean up / remove query params
+    return [...path];
+  }
+
+  setRootPath(path: string): void {
+    this.rootPath = path;
   }
 
   navigateByUrl(url: string) {
@@ -47,11 +60,76 @@ export class RouterService {
   forgotPassword() {
     return this.navigateByUrl('login/forgot');
   }
+
   home() {
     return this.navigateByUrl('/home');
   }
-}
-function tap(arg0: (event: Event) => void): import("rxjs").OperatorFunction<import("@angular/router").Event, unknown> {
-  throw new Error('Function not implemented.');
-}
 
+  users() {
+    return this.navigateByUrl('/users');
+  }
+
+  addUser() {
+    return this.navigateByUrl('/users/new');
+  }
+
+  editUser(uid: string) {
+    return this.navigateByUrl('/users/' + uid + '/edit');
+  }
+
+  viewUser(uid: string) {
+    return this.navigateByUrl('/users/' + uid + '/view');
+  }
+
+  teams() {
+    return this.navigateByUrl('/teams');
+  }
+
+  addTeam() {
+    return this.navigateByUrl('/teams/new');
+  }
+
+  editTeam(teamId: string) {
+    return this.navigateByUrl('/teams/' + teamId + '/edit');
+  }
+
+  viewTeam(teamId: string) {
+    return this.navigateByUrl('/teams/' + teamId + '/view');
+  }
+
+  organizations() {
+    return this.navigateByUrl('/organizations');
+  }
+
+  addOrganization() {
+    return this.navigateByUrl('/organizations/new');
+  }
+
+  editOrganization(orgId: string) {
+    return this.navigateByUrl('/organizations/' + orgId + '/edit');
+  }
+
+  viewOrganization(orgId: string) {
+    return this.navigateByUrl('/organizations/' + orgId + '/view');
+  }
+
+  schema() {
+    return this.navigateByUrl('/schema/');
+  }
+
+  editSchema(schemaId: string) {
+    return this.navigateByUrl('/schema/' + schemaId + '/view');
+  }
+
+  permissions() {
+    return this.navigateByUrl('/permissions');
+  }
+
+  profile() {
+    return this.navigateByUrl('/profile');
+  }
+
+  roles() {
+    return this.navigateByUrl('/roles');
+  }
+}
