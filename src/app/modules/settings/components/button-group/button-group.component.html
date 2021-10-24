@@ -2,10 +2,11 @@
   <ng-container *ngFor="let option of options; let i = index">
     <label
       class="btn btn-white"
-      [class.active]="isActive(option, i)"
+      [class.active]="isActive(i)"
       (click)="setValue(option, i)"
     >
-      <input type="radio" [attr.checked]="isActive(option, i)" /> {{ option }}
+      <input type="radio" [checked]="isActive(i)" />
+      {{ SidebarStyle[option] }}
     </label>
   </ng-container>
 </div>

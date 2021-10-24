@@ -8,17 +8,20 @@ import { SidebarStyle } from 'src/app/types/enums/sideBarStyle';
 })
 export class ButtonGroupComponent implements OnInit {
   @Input() value: SidebarStyle = SidebarStyle.expanded;
-  @Input() options: SidebarStyle[] = [];
+  @Input() options?: SidebarStyle[];
   @Input() values: SidebarStyle[] = [];
+  SidebarStyle = SidebarStyle;
   @Output() valueChange: EventEmitter<SidebarStyle> =
     new EventEmitter<SidebarStyle>();
 
-  constructor() {}
+  constructor() {
+    console.log(this.value);
+  }
 
   ngOnInit() {}
 
-  isActive(option: SidebarStyle, index: number) {
-    return this.value === this.getValue(option, index);
+  isActive(index: number) {
+    return SidebarStyle[this.value] === SidebarStyle[index];
   }
 
   getValue(option: SidebarStyle, index: number): SidebarStyle {

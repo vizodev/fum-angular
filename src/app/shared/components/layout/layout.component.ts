@@ -21,6 +21,7 @@ export class LayoutComponent implements OnInit {
   toggle() {
     toggleSidebar();
   }
+  
   public get sidebarStyle() {
     return this.settingService.sidebarStyle;
   }

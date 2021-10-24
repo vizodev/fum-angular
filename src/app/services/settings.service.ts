@@ -12,7 +12,6 @@ export class SettingsService {
   constructor(private localStorage: LocalStorageService) {
     this.sidebarStyle = localStorage.get('sidebarStyle');
     this.sidebarDefaults = SidebarStyle.expanded;
-    this.sidebarStyle = SidebarStyle.expanded;;
   }
 
   public set SidebarStyle(sidebarStyle) {
