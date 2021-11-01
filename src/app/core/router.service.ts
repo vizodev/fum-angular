@@ -49,10 +49,6 @@ export class RouterService {
     return this.navigateByUrl('login/signin');
   }
 
-  signup() {
-    return this.navigateByUrl('login/register');
-  }
-
   login() {
     return this.navigateByUrl('/login');
   }
@@ -62,7 +58,7 @@ export class RouterService {
   }
 
   home() {
-    return this.navigateByUrl('/home');
+    return this.navigateByUrl('');
   }
 
   users() {

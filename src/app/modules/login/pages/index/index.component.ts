@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterService } from 'src/app/core/router.service';
+import { RouterService } from '../../../../core/router.service';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-index',
@@ -7,15 +8,21 @@ import { RouterService } from 'src/app/core/router.service';
   styleUrls: ['./index.component.scss'],
 })
 export class IndexComponent implements OnInit {
-  constructor(private router: RouterService) {}
+  constructor(private router: RouterService, private user: UserService) {}
 
   ngOnInit(): void {}
 
-  email() {}
+  email() {
+    this.router.signin();
+  }
 
-  facebook() {}
+  facebook() {
+    return this.user.loginWithFacebook();
+  }
 
-  google() {}
+  google() {
+    return this.user.loginWithGoogle();
+  }
 
   login() {
     this.router.signin();
