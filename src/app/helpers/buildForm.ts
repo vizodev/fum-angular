@@ -2,6 +2,8 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MyArray, MyMap, Schema } from 'fum-models/lib';
 
 export function buildData(schema: Schema, entity: any) {
+
+  console.log(entity,schema)
   if (schema) {
     var formGroup = new FormGroup({});
     for (const field of schema) {

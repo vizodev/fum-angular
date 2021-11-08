@@ -12,52 +12,62 @@
     <div class="card card-small mb-3">
       <div class="card-body">
         <form [formGroup]="form" *ngIf="form">
-          <div *ngFor="let field of organizationSchema">
-            {{ field.key }}
+          <div *ngFor="let field of organizationSchema$ | async">
+            <ng-container
+              *ngIf="
+                field.key !== 'organizations' &&
+                field.key !== 'teams' &&
+                field.key !== 'roles' &&
+                field.key !== 'permissions'
+              "
+            >
+              {{ field.key }}
 
-            <ng-container *ngIf="field.type.id === 'array'">
-              <app-array
-                [f]="form.get(field.key)"
-                [schema]="field.type"
-                [data]="organization[field.key]"
-              ></app-array>
-            </ng-container>
+              <ng-container *ngIf="field.type.id === 'array'">
+                <app-array
+                  [f]="form.get(field.key)"
+                  [schema]="field.type"
+                  [data]="organization[field.key]"
+                ></app-array>
+              </ng-container>
 
-            <ng-container *ngIf="field.type.id === 'map'">
-              <app-map
-                [f]="form.get(field.key)"
-                [schema]="field.type"
-                [data]="organization[field.key]"
-              ></app-map>
-            </ng-container>
+              <ng-container *ngIf="field.type.id === 'map'">
+                <app-map
+                  [f]="form.get(field.key)"
+                  [schema]="field.type"
+                  [data]="organization[field.key]"
+                ></app-map>
+              </ng-container>
 
-            <div *ngIf="field.type.id === 'string'">
-              <app-string
-                [f]="form.get(field.key)"
-                [data]="organization[field.key]"
-                [name]="field.key"
-              ></app-string>
-            </div>
+              <div *ngIf="field.type.id === 'string'">
+                <app-string
+                  [f]="form.get(field.key)"
+                  [data]="organization[field.key]"
+                  [name]="field.key"
+                ></app-string>
+              </div>
 
-            <ng-container *ngIf="field.type.id === 'number'">
-              <app-number
-                [f]="form.get(field.key)"
-                [data]="organization[field.key]"
-                [name]="field.key"
-              ></app-number>
-            </ng-container>
+              <ng-container *ngIf="field.type.id === 'number'">
+                <app-number
+                  [f]="form.get(field.key)"
+                  [data]="organization[field.key]"
+                  [name]="field.key"
+                ></app-number>
+              </ng-container>
 
-            <ng-container *ngIf="field.type.id === 'boolean'">
-              <app-boolean
-                [f]="form.get(field.key)"
-                [data]="organization[field.key]"
-                [name]="field.key"
-              ></app-boolean>
+              <ng-container *ngIf="field.type.id === 'boolean'">
+                <app-boolean
+                  [f]="form.get(field.key)"
+                  [data]="organization[field.key]"
+                  [name]="field.key"
+                ></app-boolean>
+              </ng-container>
             </ng-container>
           </div>
         </form>
       </div>
     </div>
+
     <!-- / Add New Page Form -->
   </div>
   <div class="col-lg-6 col-md-12">
@@ -92,5 +102,114 @@
       </div>
     </div>
     <!-- / Page Overview -->
+    <div class="card card-small mb-3">
+      <div class="card-body">
+        <form [formGroup]="form1" *ngIf="form1">
+          <div *ngFor="let field of organizationSchema$ | async">
+            <ng-container
+              *ngIf="field.key === 'organizations' || field.key === 'teams'"
+            >
+              {{ field.key }}
+
+              <ng-container *ngIf="field.type.id === 'array'">
+                <app-array
+                  [f]="form1.get(field.key)"
+                  [schema]="field.type"
+                  [data]="organization[field.key]"
+                ></app-array>
+              </ng-container>
+
+              <ng-container *ngIf="field.type.id === 'map'">
+                <app-map
+                  [f]="form1.get(field.key)"
+                  [schema]="field.type"
+                  [data]="organization[field.key]"
+                ></app-map>
+              </ng-container>
+
+              <div *ngIf="field.type.id === 'string'">
+                <app-string
+                  [f]="form1.get(field.key)"
+                  [data]="organization[field.key]"
+                  [name]="field.key"
+                ></app-string>
+              </div>
+
+              <ng-container *ngIf="field.type.id === 'number'">
+                <app-number
+                  [f]="form1.get(field.key)"
+                  [data]="organization[field.key]"
+                  [name]="field.key"
+                ></app-number>
+              </ng-container>
+
+              <ng-container *ngIf="field.type.id === 'boolean'">
+                <app-boolean
+                  [f]="form1.get(field.key)"
+                  [data]="organization[field.key]"
+                  [name]="field.key"
+                ></app-boolean>
+              </ng-container>
+            </ng-container>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- / Add New Page Form -->
+
+    <div class="card card-small mb-3">
+      <div class="card-body">
+        <form [formGroup]="form2" *ngIf="form2">
+          <div *ngFor="let field of organizationSchema$ | async">
+            <ng-container
+              *ngIf="field.key === 'roles' || field.key === 'permissions'"
+            >
+              {{ field.key }}
+
+              <ng-container *ngIf="field.type.id === 'array'">
+                <app-array
+                  [f]="form2.get(field.key)"
+                  [schema]="field.type"
+                  [data]="organization[field.key]"
+                ></app-array>
+              </ng-container>
+
+              <ng-container *ngIf="field.type.id === 'map'">
+                <app-map
+                  [f]="form2.get(field.key)"
+                  [schema]="field.type"
+                  [data]="organization[field.key]"
+                ></app-map>
+              </ng-container>
+
+              <div *ngIf="field.type.id === 'string'">
+                <app-string
+                  [f]="form2.get(field.key)"
+                  [data]="organization[field.key]"
+                  [name]="field.key"
+                ></app-string>
+              </div>
+
+              <ng-container *ngIf="field.type.id === 'number'">
+                <app-number
+                  [f]="form2.get(field.key)"
+                  [data]="organization[field.key]"
+                  [name]="field.key"
+                ></app-number>
+              </ng-container>
+
+              <ng-container *ngIf="field.type.id === 'boolean'">
+                <app-boolean
+                  [f]="form2.get(field.key)"
+                  [data]="organization[field.key]"
+                  [name]="field.key"
+                ></app-boolean>
+              </ng-container>
+            </ng-container>
+          </div>
+        </form>
+      </div>
+    </div>
+    
   </div>
 </div>
