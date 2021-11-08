@@ -1,1 +1,66 @@
-<p>edit works!</p>
+<!-- Page Header -->
+<div class="page-header row no-gutters py-4">
+    <div class="col-12 text-center text-sm-left mb-0">
+      <span class="text-uppercase page-subtitle">Users</span>
+      <h3 class="page-title">Edit field</h3>
+    </div>
+  </div>
+  <!-- End Page Header -->
+  <div class="row">
+    <div class="col-lg-9 col-md-12">
+      <!-- Add New Page Form -->
+      <div class="card card-small mb-3">
+        <div class="card-body">
+          <form class="add-new-page row">
+            <input
+              class="form-control form-control-lg col mx-3"
+              type="text"
+              placeholder="Key"
+              name="title"
+            />
+            <select class="form-control form-control-lg col custom-select mx-3" name="type">
+              <option value="" disabled>Type</option>
+              <option *ngFor="let type of Types" [value]="type">
+                {{ type }}
+              </option>
+            </select>
+          </form>
+        </div>
+       
+      </div>
+      <!-- / Add New Page Form -->
+   
+    </div>
+    <div class="col-lg-3 col-md-12">
+      <!-- Page Overview -->
+      <div class="card card-small mb-3">
+        <div class="card-header border-bottom">
+          <h6 class="m-0"> Actions</h6>
+        </div>
+        <div class="card-body p-0">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item p-3">
+              <span class="d-flex mb-2">
+                <i class="material-icons mr-1 mt-1">link</i
+                ><span class="mr-1 mt-1">PageSlug:</span>
+                <input
+                  type="text"
+                  class="form-control col-md-7 ml-auto"
+                  name="slug"
+                />
+              </span>
+            </li>
+            <li class="list-group-item d-flex px-3 pt-0">
+              <button class="btn btn-sm btn-white" routerLink="/organizations">Cancel</button>
+              <button class="btn btn-sm btn-accent ml-auto">
+                <i class="material-icons">save</i> Save
+                <i class="fas fa-circle-notch fa-spin ml-1"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- / Page Overview -->
+    </div>
+  </div>
+  

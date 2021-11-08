@@ -1,1 +1,96 @@
-<p>edit works!</p>
+<!-- Page Header -->
+<div class="page-header row no-gutters py-4">
+  <div class="col-12 text-center text-sm-left mb-0">
+    <span class="text-uppercase page-subtitle">Organizations</span>
+    <h3 class="page-title">Edit field</h3>
+  </div>
+</div>
+<!-- End Page Header -->
+<div class="row">
+  <div class="col-lg-6 col-md-12">
+    <!-- Add New Page Form -->
+    <div class="card card-small mb-3">
+      <div class="card-body">
+        <form [formGroup]="form" *ngIf="form">
+          <div *ngFor="let field of organizationSchema">
+            {{ field.key }}
+
+            <ng-container *ngIf="field.type.id === 'array'">
+              <app-array
+                [f]="form.get(field.key)"
+                [schema]="field.type"
+                [data]="organization[field.key]"
+              ></app-array>
+            </ng-container>
+
+            <ng-container *ngIf="field.type.id === 'map'">
+              <app-map
+                [f]="form.get(field.key)"
+                [schema]="field.type"
+                [data]="organization[field.key]"
+              ></app-map>
+            </ng-container>
+
+            <div *ngIf="field.type.id === 'string'">
+              <app-string
+                [f]="form.get(field.key)"
+                [data]="organization[field.key]"
+                [name]="field.key"
+              ></app-string>
+            </div>
+
+            <ng-container *ngIf="field.type.id === 'number'">
+              <app-number
+                [f]="form.get(field.key)"
+                [data]="organization[field.key]"
+                [name]="field.key"
+              ></app-number>
+            </ng-container>
+
+            <ng-container *ngIf="field.type.id === 'boolean'">
+              <app-boolean
+                [f]="form.get(field.key)"
+                [data]="organization[field.key]"
+                [name]="field.key"
+              ></app-boolean>
+            </ng-container>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- / Add New Page Form -->
+  </div>
+  <div class="col-lg-6 col-md-12">
+    <!-- Page Overview -->
+    <div class="card card-small mb-3">
+      <div class="card-header border-bottom">
+        <h6 class="m-0"> Actions</h6>
+      </div>
+      <div class="card-body p-0">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item p-3">
+            <span class="d-flex mb-2">
+              <i class="material-icons mr-1 mt-1">link</i
+              ><span class="mr-1 mt-1">PageSlug:</span>
+              <input
+                type="text"
+                class="form-control col-md-7 ml-auto"
+                name="slug"
+              />
+            </span>
+          </li>
+          <li class="list-group-item d-flex px-3 pt-0">
+            <button class="btn btn-sm btn-white" routerLink="/organizations">
+              Cancel
+            </button>
+            <button class="btn btn-sm btn-accent ml-auto">
+              <i class="material-icons">save</i> Save
+              <i class="fas fa-circle-notch fa-spin ml-1"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- / Page Overview -->
+  </div>
+</div>

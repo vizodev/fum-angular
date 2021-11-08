@@ -1,0 +1,27 @@
+<!-- <h2>Map Component</h2>
+{{ data | json }} -->
+<br />
+
+<ng-container *ngFor="let field of schema.values | keyvalue">
+  {{field.key}}:
+  <ng-container *ngIf="field.value.id === 'array'">
+    <app-array [f]="f ? f.get(field.key) : null"  [schema]="field.value" [data]="data[field.key]"></app-array>
+  </ng-container>
+
+  <ng-container *ngIf="field.value.id === 'map'">
+    <app-map [f]="f ? f.get(field.key) : null" [schema]="field.value" [data]="data[field.key]"></app-map>
+  </ng-container>
+
+  <ng-container *ngIf="field.value.id === 'string'">
+    <app-string  [f]="f ? f.get(field.key) : null"  [data]="data[field.key]" [name]="field.key"></app-string>
+  </ng-container>
+
+  <ng-container *ngIf="field.value.id === 'number'">
+    <app-number [f]="f ? f.get(field.key) : null"  [data]="data[field.key]" [name]="field.key"></app-number>
+  </ng-container>
+
+  <ng-container *ngIf="field.value.id === 'boolean'">
+    <app-boolean [f]="f ? f.get(field.key) : null"  [data]="data[field.key]" [name]="field.key"></app-boolean>
+  </ng-container>
+  <br />
+</ng-container>

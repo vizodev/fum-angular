@@ -7,19 +7,27 @@ import { LayoutModule } from 'src/app/shared/components/layout/layout.module';
 import { ViewComponent } from './pages/view/view.component';
 import { EditComponent } from './pages/edit/edit.component';
 import { ListComponent } from './pages/list/list.component';
-
+import { LoadingIndicatorModule } from 'src/app/shared/components/loading-indicator/loading-indicator.module';
+import { DataTablesModule } from 'angular-datatables';
+import { TypesModule } from 'src/app/shared/components/types/types.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     OrganizationsComponent,
     ViewComponent,
     EditComponent,
-    ListComponent
+    ListComponent,
   ],
   imports: [
     CommonModule,
     OrganizationsRoutingModule,
-    LayoutModule
-  ]
+    LayoutModule,
+    LoadingIndicatorModule,
+    DataTablesModule,
+    TypesModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
-export class OrganizationsModule { }
+export class OrganizationsModule {}

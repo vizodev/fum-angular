@@ -1,0 +1,24 @@
+<!-- <h2>Array component</h2>
+{{ data | json }}
+<br /> -->
+<br />
+
+<ng-container *ngFor="let field of data; let i = index">
+  [{{i}}]
+  <ng-container *ngIf="schema.values.id === 'map'">
+    <app-map [f]="f ? f.get('' + i) : null" [schema]="schema.values" [data]="field"></app-map>
+  </ng-container>
+
+  <ng-container *ngIf="schema?.values?.id === 'string'">
+    <app-string [f]="f ? f.get('' + i) : null" [data]="field"></app-string>
+  </ng-container>
+
+  <ng-container *ngIf="schema?.values?.id === 'number'">
+    <app-string [f]="f ? f.get('' + i) : null" [data]="field"></app-string>
+  </ng-container>
+
+  <ng-container *ngIf="schema?.values?.id === 'boolean'">
+    <app-string [f]="f ? f.get('' + i) : null" [data]="field"></app-string>
+  </ng-container>
+  <br />
+</ng-container>
