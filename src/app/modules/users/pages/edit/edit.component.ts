@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { UserSchema } from 'fum-models/lib';
 import { Observable, Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { buildData } from 'src/app/helpers/buildForm';
-import { OrganizationService } from 'src/app/services/organization.service';
 import { SchemasService } from 'src/app/services/schemas.service';
+import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -19,19 +19,28 @@ export class EditComponent implements OnInit {
   form: FormGroup | undefined;
   form1: FormGroup | undefined;
   form2: FormGroup | undefined;
-
+  saveLoading: boolean = false;
+  statusPage?: 'edit' | 'new';
   constructor(
     private route: ActivatedRoute,
     private schema: SchemasService,
-    private organizationService: OrganizationService
+    private userService: UserService
   ) {
-    this.route.paramMap.subscribe((params) => {
-      this.organizationService
-        .getUser(params.get('uId') ?? '')
-        .subscribe((user) => {
-          this.users = user;
-          this.buildForms();
+    this.route.url.subscribe((urlS) => {
+      if (urlS[1]?.path === 'edit') {
+        this.statusPage = 'edit';
+        this.route.paramMap.subscribe((params) => {
+          this.userService
+            .getUser(params.get('uid') ?? '')
+            .subscribe((user) => {
+              this.users = user;
+              this.buildForms();
+            });
         });
+      } else {
+        this.statusPage = 'new';
+        this.buildForms();
+      }
     });
   }
 
@@ -47,6 +56,7 @@ export class EditComponent implements OnInit {
         .pipe(
           tap((fields) => {
             this.form2 = buildData(fields, this.users);
+            console.log(this.form2);
           })
         )
         .subscribe()
@@ -61,7 +71,12 @@ export class EditComponent implements OnInit {
             )
           )
         )
-        .pipe(tap((fields) => (this.form1 = buildData(fields, this.users))))
+        .pipe(
+          tap((fields) => {
+            this.form1 = buildData(fields, this.users);
+            console.log(this.form1);
+          })
+        )
         .subscribe()
     );
     this.sub.add(
@@ -80,7 +95,7 @@ export class EditComponent implements OnInit {
         .pipe(
           tap((fields) => {
             this.form = buildData(fields, this.users);
-            console.log(fields, this.form);
+            console.log(this.form);
           })
         )
         .subscribe()
@@ -88,6 +103,22 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  async save() {
+    this.saveLoading = true;
+    if (!this.form?.valid || !this.form1?.valid || !this.form2?.valid)
+      this.saveLoading = false;
+    else {
+      try {
+        (await this.statusPage) == 'edit'
+          ? this.userService.updateUser(this.users)
+          : this.userService.addUser(this.users);
+        this.saveLoading = false;
+      } catch (error) {
+        this.saveLoading = false;
+      }
+    }
+  }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();

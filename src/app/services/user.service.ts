@@ -1,5 +1,16 @@
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import {
+  collection,
+  collectionData,
+  doc,
+  docData,
+  DocumentData,
+  Firestore,
+  UpdateData,
+  updateDoc,
+  addDoc,
+} from '@angular/fire/firestore';
+import { map, take, tap } from 'rxjs/operators';
 import { AuthService } from '../core/auth.service';
 import { RouterService } from '../core/router.service';
 
@@ -10,7 +21,11 @@ export class UserService {
   userId?: string;
   email?: string;
 
-  constructor(private auth: AuthService, private router: RouterService) {}
+  constructor(
+    private auth: AuthService,
+    private router: RouterService,
+    private firestore: Firestore
+  ) {}
 
   public get authUser$() {
     return this.auth.user$.pipe(
@@ -73,6 +88,42 @@ export class UserService {
       return true;
     } catch (err) {
       alert(err);
+      return false;
+    }
+  }
+
+  getUsers() {
+    const ref = collection(this.firestore, '/fum/entities/users');
+    return collectionData(ref).pipe(
+      map((snap: DocumentData) => (!snap ? [] : (snap as any)))
+    );
+  }
+
+  getUser(userId: string) {
+    console.log(userId);
+    const ref = doc(this.firestore, `/fum/entities/users/${userId}`);
+    return docData(ref).pipe(map((snap: DocumentData) => snap as any));
+  }
+
+  async updateUser(user: any) {
+    try {
+      const ref = doc(this.firestore, `/fum/entities/users/${user.id}`);
+      await updateDoc(ref, user);
+
+      return true;
+    } catch (error) {
+      alert(error);
+      return false;
+    }
+  }
+
+  async addUser(user: any) {
+    try {
+      const ref = collection(this.firestore, `/fum/entities/users`);
+      await addDoc(ref, user);
+      return true;
+    } catch (error) {
+      alert(error);
       return false;
     }
   }

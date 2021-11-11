@@ -9,9 +9,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { OrganizationSchema } from 'fum-models/lib';
 import { Subject } from 'rxjs';
 import { RouterService } from 'src/app/core/router.service';
-import {
-  refreshDataTable,
-} from 'src/app/helpers/datatables.helper';
+import { refreshDataTable } from 'src/app/helpers/datatables.helper';
 import { OrganizationService } from 'src/app/services/organization.service';
 import { SchemasService } from 'src/app/services/schemas.service';
 

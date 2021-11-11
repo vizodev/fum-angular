@@ -18,72 +18,32 @@ export class EditComponent implements OnInit, OnDestroy {
   sub = new Subscription();
   organizationSchema$?: Observable<UserSchema>;
   form: FormGroup | undefined;
-  form1: FormGroup | undefined;
-  form2: FormGroup | undefined;
 
   constructor(
     private route: ActivatedRoute,
     private schema: SchemasService,
     private organizationService: OrganizationService
   ) {
-    this.route.paramMap.subscribe((params) => {
-      this.organizationService
-        .getUser(params.get('orgId') ?? '')
-        .subscribe((organization) => {
-          this.organization = organization;
-          this.buildForms();
+    this.route.url.subscribe((urlS) => {
+      if (urlS[1]?.path === 'edit')
+        this.route.paramMap.subscribe((params) => {
+          this.organizationService
+            .getOrganization(params.get('orgId') ?? '')
+            .subscribe((organization) => {
+              this.organization = organization;
+              this.buildForms();
+            });
         });
+      this.buildForms();
     });
   }
 
   buildForms() {
     this.organizationSchema$ = this.schema.schema.pipe(
-      map((schema) => schema.user)
+      map((schema) => schema.organization)
     );
     this.sub.add(
       this.organizationSchema$
-        .pipe(
-          map((organizationS) =>
-            organizationS.filter(
-              (f) => f.key === 'roles' || f.key === 'permissions'
-            )
-          )
-        )
-        .pipe(
-          tap((fields) => {
-            this.form2 = buildData(fields, this.organization);
-          })
-        )
-        .subscribe()
-    );
-
-    this.sub.add(
-      this.organizationSchema$
-        .pipe(
-          map((organizationS) =>
-            organizationS.filter(
-              (f) => (f) => f.key === 'organizations' || f.key === 'teams'
-            )
-          )
-        )
-        .pipe(
-          tap((fields) => (this.form1 = buildData(fields, this.organization)))
-        )
-        .subscribe()
-    );
-    this.sub.add(
-      this.organizationSchema$
-        .pipe(
-          map((organizationS) =>
-            organizationS.filter(
-              (f) =>
-                f.key !== 'organizations' &&
-                f.key !== 'teams' &&
-                f.key !== 'roles' &&
-                f.key !== 'permissions'
-            )
-          )
-        )
         .pipe(
           tap((fields) => {
             this.form = buildData(fields, this.organization);

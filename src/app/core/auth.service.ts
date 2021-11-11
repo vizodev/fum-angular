@@ -6,16 +6,11 @@ import {
   signInWithPopup,
   user,
   signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  updateProfile,
   sendPasswordResetEmail,
   idToken,
-  signInWithCustomToken,
   FacebookAuthProvider,
-  EmailAuthProvider,
   AuthProvider,
   GoogleAuthProvider,
-  
 } from '@angular/fire/auth';
 
 @Injectable({

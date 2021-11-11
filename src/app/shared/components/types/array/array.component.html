@@ -4,9 +4,15 @@
 <br />
 
 <ng-container *ngFor="let field of data; let i = index">
-  [{{i}}]
+
+  [{{ i }}]
+
   <ng-container *ngIf="schema.values.id === 'map'">
-    <app-map [f]="f ? f.get('' + i) : null" [schema]="schema.values" [data]="field"></app-map>
+    <app-map
+      [f]="f ? f.get('' + i) : null"
+      [schema]="schema.values"
+      [data]="field"
+    ></app-map>
   </ng-container>
 
   <ng-container *ngIf="schema?.values?.id === 'string'">
