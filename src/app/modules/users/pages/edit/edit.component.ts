@@ -110,6 +110,7 @@ export class EditComponent implements OnInit {
       this.saveLoading = false;
     else {
       try {
+        this.users.property= this.form?.value+this.form1?.value+this.form2?.value
         (await this.statusPage) == 'edit'
           ? this.userService.updateUser(this.users)
           : this.userService.addUser(this.users);
