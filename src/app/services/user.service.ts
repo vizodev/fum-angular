@@ -106,10 +106,10 @@ export class UserService {
   }
 
   async updateUser(user: any) {
+    console.log(user)
     try {
       const ref = doc(this.firestore, `/fum/entities/users/${user.id}`);
       await updateDoc(ref, user);
-
       return true;
     } catch (error) {
       alert(error);
@@ -118,6 +118,7 @@ export class UserService {
   }
 
   async addUser(user: any) {
+    console.log(user)
     try {
       const ref = collection(this.firestore, `/fum/entities/users`);
       await addDoc(ref, user);

@@ -17,8 +17,8 @@
           <div *ngFor="let field of usersSchema$ | async">
             <ng-container
               *ngIf="
-                field.key !== 'organizations' &&
-                field.key !== 'teams' &&
+                field.key !== 'organizationsIds' &&
+                field.key !== 'teamsIds' &&
                 field.key !== 'roles' &&
                 field.key !== 'permissions'
               "
@@ -107,7 +107,7 @@
         <form [formGroup]="form1" *ngIf="form1">
           <div *ngFor="let field of usersSchema$ | async">
             <ng-container
-              *ngIf="field.key === 'organizations' || field.key === 'teams'"
+              *ngIf="field.key === 'organizationsIds' || field.key === 'teamsIds'"
             >
               {{ field.required ? "*" : "" }}
               {{ field.key }}

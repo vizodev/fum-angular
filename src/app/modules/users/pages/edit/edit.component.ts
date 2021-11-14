@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { user } from '@angular/fire/auth';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { UserSchema } from 'fum-models/lib';
@@ -16,11 +17,13 @@ export class EditComponent implements OnInit {
   users: any;
   sub = new Subscription();
   usersSchema$?: Observable<UserSchema>;
+  usersSchema?: UserSchema;
   form: FormGroup | undefined;
   form1: FormGroup | undefined;
   form2: FormGroup | undefined;
   saveLoading: boolean = false;
   statusPage?: 'edit' | 'new';
+
   constructor(
     private route: ActivatedRoute,
     private schema: SchemasService,
@@ -46,6 +49,11 @@ export class EditComponent implements OnInit {
 
   buildForms() {
     this.usersSchema$ = this.schema.schema.pipe(map((schema) => schema.user));
+
+    this.schema.schema
+      .pipe(tap((schema) => (this.usersSchema = schema.user)))
+      .subscribe();
+
     this.sub.add(
       this.usersSchema$
         .pipe(
@@ -56,7 +64,6 @@ export class EditComponent implements OnInit {
         .pipe(
           tap((fields) => {
             this.form2 = buildData(fields, this.users);
-            console.log(this.form2);
           })
         )
         .subscribe()
@@ -67,14 +74,13 @@ export class EditComponent implements OnInit {
         .pipe(
           map((userS) =>
             userS.filter(
-              (f) => (f) => f.key === 'organizations' || f.key === 'teams'
+              (f) => (f) => f.key === 'organizationsIds' || f.key === 'teamsIds'
             )
           )
         )
         .pipe(
           tap((fields) => {
             this.form1 = buildData(fields, this.users);
-            console.log(this.form1);
           })
         )
         .subscribe()
@@ -85,8 +91,8 @@ export class EditComponent implements OnInit {
           map((userS) =>
             userS.filter(
               (f) =>
-                f.key !== 'organizations' &&
-                f.key !== 'teams' &&
+                f.key !== 'organizationsIds' &&
+                f.key !== 'teamsIds' &&
                 f.key !== 'roles' &&
                 f.key !== 'permissions'
             )
@@ -95,7 +101,6 @@ export class EditComponent implements OnInit {
         .pipe(
           tap((fields) => {
             this.form = buildData(fields, this.users);
-            console.log(this.form);
           })
         )
         .subscribe()
@@ -106,19 +111,23 @@ export class EditComponent implements OnInit {
 
   async save() {
     this.saveLoading = true;
-    if (!this.form?.valid || !this.form1?.valid || !this.form2?.valid)
-      this.saveLoading = false;
-    else {
-      try {
-        this.users.property= this.form?.value+this.form1?.value+this.form2?.value
-        (await this.statusPage) == 'edit'
-          ? this.userService.updateUser(this.users)
-          : this.userService.addUser(this.users);
-        this.saveLoading = false;
-      } catch (error) {
-        this.saveLoading = false;
-      }
-    }
+    // if (!this.form?.valid || !this.form1?.valid || !this.form2?.valid)
+    //   this.saveLoading = false;
+    // else {
+    this.users = {};
+    this.usersSchema?.forEach((field) => {
+      this.users[field.key] =
+        this.form?.get(field.key)?.value ??
+        this.form1?.get(field.key)?.value ??
+        this.form2?.get(field.key)?.value ??
+        null;
+    });
+    console.log(this.users);
+    await (this.statusPage == 'edit'
+      ? this.userService.updateUser(this.users)
+      : this.userService.addUser(this.users));
+    this.saveLoading = false;
+    // }
   }
 
   ngOnDestroy(): void {
