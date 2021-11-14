@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { user } from '@angular/fire/auth';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { UserSchema } from 'fum-models/lib';
 import { Observable, Subscription } from 'rxjs';
@@ -23,7 +23,7 @@ export class EditComponent implements OnInit {
   form2: FormGroup | undefined;
   saveLoading: boolean = false;
   statusPage?: 'edit' | 'new';
-
+  selectOrganizations: any[] = [];
   constructor(
     private route: ActivatedRoute,
     private schema: SchemasService,
@@ -74,7 +74,7 @@ export class EditComponent implements OnInit {
         .pipe(
           map((userS) =>
             userS.filter(
-              (f) => (f) => f.key === 'organizationsIds' || f.key === 'teamsIds'
+              (f) => f.key === 'organizationsIds' || f.key === 'teamsIds'
             )
           )
         )
@@ -85,6 +85,7 @@ export class EditComponent implements OnInit {
         )
         .subscribe()
     );
+
     this.sub.add(
       this.usersSchema$
         .pipe(
@@ -111,26 +112,44 @@ export class EditComponent implements OnInit {
 
   async save() {
     this.saveLoading = true;
-    // if (!this.form?.valid || !this.form1?.valid || !this.form2?.valid)
-    //   this.saveLoading = false;
-    // else {
-    this.users = {};
-    this.usersSchema?.forEach((field) => {
-      this.users[field.key] =
-        this.form?.get(field.key)?.value ??
-        this.form1?.get(field.key)?.value ??
-        this.form2?.get(field.key)?.value ??
-        null;
+    if (!this.form?.valid || !this.form1?.valid || !this.form2?.valid)
+      this.saveLoading = false;
+    else {
+      this.users = this.users ?? {};
+      this.usersSchema?.forEach((field) => {
+        field.key !== 'organizationsIds'
+          ? (this.users[field.key] =
+              this.form?.get(field.key)?.value ??
+              this.form1?.get(field.key)?.value ??
+              this.form2?.get(field.key)?.value ??
+              null)
+          : null;
+      });
+
+      console.log(this.users);
+      await (this.statusPage == 'edit'
+        ? this.userService.updateUser(this.users)
+        : this.userService.addUser(this.users));
+      this.saveLoading = false;
+    }
+  }
+
+  addOrganization() {
+    this.selectOrganizations.forEach((org) => {
+      (this.form1?.get('organizationsIds') as FormArray).controls.push(
+        new FormControl(org.id)
+      );
+      this.users.organizationsIds.push(org.id);
     });
+
     console.log(this.users);
-    await (this.statusPage == 'edit'
-      ? this.userService.updateUser(this.users)
-      : this.userService.addUser(this.users));
-    this.saveLoading = false;
-    // }
   }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+  }
+
+  onSelect(organizations: any) {
+    this.selectOrganizations = organizations;
   }
 }

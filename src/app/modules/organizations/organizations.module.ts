@@ -11,6 +11,7 @@ import { LoadingIndicatorModule } from 'src/app/shared/components/loading-indica
 import { DataTablesModule } from 'angular-datatables';
 import { TypesModule } from 'src/app/shared/components/types/types.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OrganizationListModule } from 'src/app/shared/components/organization-list/organization-list.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TypesModule,
     FormsModule,
     ReactiveFormsModule,
+    OrganizationListModule,
   ],
 })
 export class OrganizationsModule {}

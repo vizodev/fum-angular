@@ -14,7 +14,7 @@
       <div class="card-body">
         <form [formGroup]="form" *ngIf="form">
           {{ form.valid ? "Note the Reqired fileds" : "" }}
-          <div *ngFor="let field of usersSchema$ | async">
+          <div *ngFor="let field of usersSchema$ | async" class="pr-3">
             <ng-container
               *ngIf="
                 field.key !== 'organizationsIds' &&
@@ -23,11 +23,10 @@
                 field.key !== 'permissions'
               "
             >
-              {{ field.required ? "*" : "" }}
-
               {{ field.key }}
 
               <ng-container *ngIf="field.type.id === 'array'">
+                <button class="btn btn-sm btn-white" >+</button>
                 <app-array
                   [f]="form.get(field.key)"
                   [schema]="field.type"
@@ -105,14 +104,22 @@
     <div class="card card-small mb-3">
       <div class="card-body">
         <form [formGroup]="form1" *ngIf="form1">
-          <div *ngFor="let field of usersSchema$ | async">
+          <div *ngFor="let field of usersSchema$ | async" class="pr-3">
             <ng-container
-              *ngIf="field.key === 'organizationsIds' || field.key === 'teamsIds'"
+              *ngIf="
+                field.key === 'organizationsIds' || field.key === 'teamsIds'
+              "
             >
               {{ field.required ? "*" : "" }}
               {{ field.key }}
 
               <ng-container *ngIf="field.type.id === 'array'">
+                <button class="btn btn-sm btn-white"   type="button"
+                class="btn btn-danger"
+                title="Delete"
+                data-toggle="modal"
+                data-target="#organizationsModal">+</button>
+
                 <app-array
                   [f]="form1.get(field.key)"
                   [schema]="field.type"
@@ -161,15 +168,15 @@
     <div class="card card-small mb-3">
       <div class="card-body">
         <form [formGroup]="form2" *ngIf="form2">
-          <div *ngFor="let field of usersSchema$ | async">
+          <div *ngFor="let field of usersSchema$ | async" class="pr-3">
             <ng-container
               *ngIf="field.key === 'roles' || field.key === 'permissions'"
             >
               {{ field.required ? "*" : "" }}
-
               {{ field.key }}
-
               <ng-container *ngIf="field.type.id === 'array'">
+                <button class="btn btn-sm btn-white">+</button>
+
                 <app-array
                   [f]="form2.get(field.key)"
                   [schema]="field.type"
@@ -215,3 +222,4 @@
     </div>
   </div>
 </div>
+<app-organization-list-dialog (selectOrganizations)='onSelect($event)' (done)="addOrganization()"></app-organization-list-dialog>

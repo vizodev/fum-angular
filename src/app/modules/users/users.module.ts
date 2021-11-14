@@ -11,14 +11,27 @@ import { LoadingIndicatorModule } from 'src/app/shared/components/loading-indica
 import { DataTablesModule } from 'angular-datatables';
 import { TypesModule } from 'src/app/shared/components/types/types.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OrganizationListDialogComponent } from './dialogs/organization-list-dialog/organization-list-dialog.component';
+import { OrganizationListModule } from 'src/app/shared/components/organization-list/organization-list.module';
 
 @NgModule({
-  declarations: [UsersComponent, ListComponent, ViewComponent, EditComponent],
-  imports: [CommonModule, UsersRoutingModule, LayoutModule,
+  declarations: [
+    UsersComponent,
+    ListComponent,
+    ViewComponent,
+    EditComponent,
+    OrganizationListDialogComponent,
+  ],
+  imports: [
+    CommonModule,
+    UsersRoutingModule,
+    LayoutModule,
     LoadingIndicatorModule,
     DataTablesModule,
     TypesModule,
     FormsModule,
-    ReactiveFormsModule,],
+    ReactiveFormsModule,
+    OrganizationListModule,
+  ],
 })
 export class UsersModule {}

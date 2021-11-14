@@ -1,47 +1,46 @@
-<!-- <h2>Map Component</h2>
-{{ data | json }} -->
-<br />
-
 <ng-container *ngFor="let field of schema.values | keyvalue">
-  {{ field.key }}:
-  <ng-container *ngIf="field.value.id === 'array'">
-    <app-array
-      [f]="f ? f.get(field.key) : null"
-      [schema]="field.value"
-      [data]="data ? data[field.key] : undefined"
-    ></app-array>
-  </ng-container>
+  <div class="ml-3">
+    {{ field.key }}:
 
-  <ng-container *ngIf="field.value.id === 'map'">
-    <app-map
-      [f]="f ? f.get(field.key) : null"
-      [schema]="field.value"
-      [data]="data ? data[field.key] : undefined"
-    ></app-map>
-  </ng-container>
+    <ng-container *ngIf="field.value.id === 'array'">
+      <button class="btn btn-sm btn-white">+</button>
+      <app-array
+        [f]="f ? f.get(field.key) : null"
+        [schema]="field.value"
+        [data]="data ? data[field.key] : undefined"
+      ></app-array>
+    </ng-container>
 
-  <ng-container *ngIf="field.value.id === 'string'">
-    <app-string
-      [f]="f ? f.get(field.key) : null"
-      [data]="data ? data[field.key] : undefined"
-      [name]="field.key"
-    ></app-string>
-  </ng-container>
+    <ng-container *ngIf="field.value.id === 'map'">
+      <app-map
+        [f]="f ? f.get(field.key) : null"
+        [schema]="field.value"
+        [data]="data ? data[field.key] : undefined"
+      ></app-map>
+    </ng-container>
 
-  <ng-container *ngIf="field.value.id === 'number'">
-    <app-number
-      [f]="f ? f.get(field.key) : null"
-      [data]="data ? data[field.key] : undefined"
-      [name]="field.key"
-    ></app-number>
-  </ng-container>
+    <ng-container *ngIf="field.value.id === 'string'">
+      <app-string
+        [f]="f ? f.get(field.key) : null"
+        [data]="data ? data[field.key] : undefined"
+        [name]="field.key"
+      ></app-string>
+    </ng-container>
 
-  <ng-container *ngIf="field.value.id === 'boolean'">
-    <app-boolean
-      [f]="f ? f.get(field.key) : null"
-      [data]="data ? data[field.key] : undefined"
-      [name]="field.key"
-    ></app-boolean>
-  </ng-container>
-  <br />
+    <ng-container *ngIf="field.value.id === 'number'">
+      <app-number
+        [f]="f ? f.get(field.key) : null"
+        [data]="data ? data[field.key] : undefined"
+        [name]="field.key"
+      ></app-number>
+    </ng-container>
+
+    <ng-container *ngIf="field.value.id === 'boolean'">
+      <app-boolean
+        [f]="f ? f.get(field.key) : null"
+        [data]="data ? data[field.key] : undefined"
+        [name]="field.key"
+      ></app-boolean>
+    </ng-container>
+  </div>
 </ng-container>
