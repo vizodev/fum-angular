@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserSchema } from 'fum-models/lib';
 import { Observable, Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { RouterService } from 'src/app/core/router.service';
 import { buildData } from 'src/app/helpers/buildForm';
 import { SchemasService } from 'src/app/services/schemas.service';
 import { UserService } from 'src/app/services/user.service';
@@ -14,6 +15,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent implements OnInit {
+  isLoading: boolean = false;
   users: any;
   sub = new Subscription();
   usersSchema$?: Observable<UserSchema>;
@@ -24,11 +26,14 @@ export class EditComponent implements OnInit {
   saveLoading: boolean = false;
   statusPage?: 'edit' | 'new';
   selectOrganizations: any[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private schema: SchemasService,
-    private userService: UserService
+    private userService: UserService,
+    private router: RouterService
   ) {
+    this.isLoading = true;
     this.route.url.subscribe((urlS) => {
       if (urlS[1]?.path === 'edit') {
         this.statusPage = 'edit';
@@ -44,6 +49,7 @@ export class EditComponent implements OnInit {
         this.statusPage = 'new';
         this.buildForms();
       }
+
     });
   }
 
@@ -106,50 +112,66 @@ export class EditComponent implements OnInit {
         )
         .subscribe()
     );
+    this.isLoading = false;
+
   }
 
   ngOnInit(): void {}
 
   async save() {
-    this.saveLoading = true;
-    if (!this.form?.valid || !this.form1?.valid || !this.form2?.valid)
-      this.saveLoading = false;
-    else {
-      this.users = this.users ?? {};
-      this.usersSchema?.forEach((field) => {
-        field.key !== 'organizationsIds'
-          ? (this.users[field.key] =
-              this.form?.get(field.key)?.value ??
-              this.form1?.get(field.key)?.value ??
-              this.form2?.get(field.key)?.value ??
-              null)
-          : null;
-      });
+    console.log(this.users);
 
-      console.log(this.users);
-      await (this.statusPage == 'edit'
-        ? this.userService.updateUser(this.users)
-        : this.userService.addUser(this.users));
-      this.saveLoading = false;
-    }
+    this.saveLoading = true;
+    // if (!this.form?.valid || !this.form1?.valid || !this.form2?.valid)
+    //   this.saveLoading = false;
+    // else {
+    this.users = this.users ?? {};
+    this.usersSchema?.forEach((field) => {
+      field.key !== 'organizationsIds' && field.key !== 'teamsIds'
+        ? (this.users[field.key] =
+            this.form?.get(field.key)?.value ??
+            this.form1?.get(field.key)?.value ??
+            this.form2?.get(field.key)?.value ??
+            null)
+        : null;
+    });
+    console.log(this.users);
+    await (this.statusPage == 'edit'
+      ? this.userService.updateUser(this.users)
+      : this.userService.addUser(this.users));
+    this.saveLoading = false;
+    this.router.users();
+  }
+  // }
+
+  addOrganizations() {
+    console.log(this.users);
+    // this.selectOrganizations.forEach((org) => {
+    //   (this.form1?.get('organizationsIds') as FormArray).controls.push(
+    //     new FormControl(org.id)
+    //   );
+    //   this.users.organizationsIds.push(org.id);
+    // });
+    // console.log(this.users);
   }
 
-  addOrganization() {
-    this.selectOrganizations.forEach((org) => {
-      (this.form1?.get('organizationsIds') as FormArray).controls.push(
-        new FormControl(org.id)
-      );
-      this.users.organizationsIds.push(org.id);
-    });
+  cancelSelectOrganizations() {}
+
+  addTeams() {
+    // console.log(this.users);
+    // this.selectTeams.forEach((team) => {
+    //   (this.form1?.get('teamsIds') as FormArray).controls.push(
+    //     new FormControl(team.id)
+    //   );
+    //   this.users.teamsIds.push(team.id);
+    // });
 
     console.log(this.users);
   }
 
+  cancelSelectTeams() {}
+
   ngOnDestroy(): void {
     this.sub.unsubscribe();
-  }
-
-  onSelect(organizations: any) {
-    this.selectOrganizations = organizations;
   }
 }

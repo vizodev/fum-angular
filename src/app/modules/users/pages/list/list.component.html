@@ -20,61 +20,65 @@
           [dtTrigger]="dataTableTrigger"
           class="file-manager file-manager-list d-none table-responsive"
         >
-        <thead>
-          <tr class="p-3 bg-grey">
-            <th class="hide-sort-icons"></th>
-            <th
-              class="text-left hide-sort-icons p-3"
-              *ngFor="let field of userSchema"
-            >
-              {{ field.key }}
-            </th>
-            <th class="text-right hide-sort-icons p-3">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="p-3" *ngFor="let user of users">
-            <td class="file-manager__item-icon p-3">
-              <div>
-                <i class="material-icons">insert_drive_file</i>
-              </div>
-            </td>
-
-            <td
-              class="text-left p-3"
-              *ngFor="let field of userSchema"
-            >
-              <span>{{ user[field.key] }}</span>
-            </td>
-
-            <td class="text-right p-3">
-              <div
-                class="btn-group btn-group-sm"
-                role="group"
-                aria-label="Table row actions"
+          <thead>
+            <tr class="p-3 bg-grey">
+              <th class="hide-sort-icons"></th>
+              <th
+                class="text-left hide-sort-icons p-3"
+                *ngFor="let field of userSchema"
               >
-                <button
-                  type="button"
-                  class="btn btn-white active-light"
-                  title="Edit"
-                  (click)="edit(user.id)"
-                >
-                  <i class="material-icons">edit</i>
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-danger"
-                  title="Delete"
-                  data-toggle="modal"
-                  data-target="#deleteModal"
-                >
-                  <i class="material-icons">delete</i>
-                </button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
+                {{ field.key }}
+              </th>
+              <th class="text-right hide-sort-icons p-3">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="p-3" *ngFor="let user of users">
+              <td class="file-manager__item-icon p-3">
+                <div>
+                  <i class="material-icons">insert_drive_file</i>
+                </div>
+              </td>
 
+              <td class="text-left p-3" *ngFor="let field of userSchema">
+                <ng-container
+                  *ngIf="field.type.id === 'map' || field.type.id === 'array'"
+                >
+                  <button class="btn btn-white">{{ field.key }}</button>
+                </ng-container>
+                <span
+                  *ngIf="field.type.id !== 'map' && field.type.id !== 'array'"
+                  >{{ user[field.key] }}</span
+                >
+              </td>
+
+              <td class="text-right p-3">
+                <div
+                  class="btn-group btn-group-sm"
+                  role="group"
+                  aria-label="Table row actions"
+                >
+                  <button
+                    type="button"
+                    class="btn btn-white active-light"
+                    title="Edit"
+                    (click)="edit(user.id)"
+                  >
+                    <i class="material-icons">edit</i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    title="Delete"
+                    data-toggle="modal"
+                    data-target="#deleteModal"
+                  >
+                    <i class="material-icons">delete</i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>

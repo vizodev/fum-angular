@@ -22,11 +22,11 @@ import { SchemasService } from 'src/app/services/schemas.service';
   styleUrls: ['./organization-list.component.scss'],
 })
 export class OrganizationListComponent implements OnInit, OnDestroy {
-  organizations: any;
+  organizations: any = [];
   isLoading: boolean = false;
   organizationSchema?: OrganizationSchema;
   @Output() selectOrganizations = new EventEmitter();
-  selected: any[] = [];
+  @Input() selected: any;
 
   @ViewChild(DataTableDirective, { static: false })
   private dataTableElement!: DataTableDirective;
@@ -35,6 +35,7 @@ export class OrganizationListComponent implements OnInit, OnDestroy {
     responsive: true,
     aaSorting: [],
   };
+
   dataTableTrigger: Subject<void> = new Subject();
 
   constructor(
@@ -46,6 +47,7 @@ export class OrganizationListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.organizationService
       .getOrganizations()
       .subscribe((organization) => (this.organizations = organization));
@@ -53,6 +55,10 @@ export class OrganizationListComponent implements OnInit, OnDestroy {
       this.organizationSchema = data.organization;
       refreshDataTable(this.dataTableElement, this.dataTableTrigger);
       this.cd.detectChanges();
+      this.selected?.forEach((org) => {
+        var element = <HTMLInputElement>document.getElementById(`${org}`);
+        element.checked = true;
+      });
       this.isLoading = false;
     });
   }
@@ -62,16 +68,20 @@ export class OrganizationListComponent implements OnInit, OnDestroy {
   }
 
   onSelectOrganization(org: any, state: boolean) {
-    if (state) this.selected.push(org);
-    else
+    console.log(state);
+
+    if (state) {
+      this.selected = this.selected ?? [];
+      this.selected.push(org.id);
+    } else
       this.selected.splice(
-        this.selected.findIndex((organization) => organization.id === org.id),
+        this.selected.findIndex((organization) => organization === org.id),
         1
       );
     this.selectOrganizations.emit(this.selected);
   }
 
   isSelected(org: any) {
-    return !!this.selected.find((organization) => organization.id === org.id);
+    return !!this.selected?.find((organization) => organization === org.id);
   }
 }

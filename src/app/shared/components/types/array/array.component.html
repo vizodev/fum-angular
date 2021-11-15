@@ -1,25 +1,28 @@
 <ng-container *ngFor="let field of data; let i = index">
-  <div class="ml-3">
-    [{{ i }}]
+  <div class="row py-1">
+    <div class="col-1 pr-0 text-center"> [{{ i }}]
 
-    <ng-container *ngIf="schema.values.id === 'map'">
-      <app-map
-        [f]="f ? f.get('' + i) : null"
-        [schema]="schema.values"
-        [data]="field"
-      ></app-map>
-    </ng-container>
+    </div>
+    <div class="col pl-0">
+      <ng-container *ngIf="schema.values.id === 'map'">
+        <app-map
+          [f]="f ? f.get('' + i) : null"
+          [schema]="schema.values"
+          [data]="field"
+        ></app-map>
+      </ng-container>
 
-    <ng-container *ngIf="schema?.values?.id === 'string'">
-      <app-string [f]="f ? f.get('' + i) : null" [data]="field"></app-string>
-    </ng-container>
+      <ng-container *ngIf="schema?.values?.id === 'string'">
+        <app-string [f]="f ? f.get('' + i) : null" [data]="field"></app-string>
+      </ng-container>
 
-    <ng-container *ngIf="schema?.values?.id === 'number'">
-      <app-string [f]="f ? f.get('' + i) : null" [data]="field"></app-string>
-    </ng-container>
+      <ng-container *ngIf="schema?.values?.id === 'number'">
+        <app-string [f]="f ? f.get('' + i) : null" [data]="field"></app-string>
+      </ng-container>
 
-    <ng-container *ngIf="schema?.values?.id === 'boolean'">
-      <app-string [f]="f ? f.get('' + i) : null" [data]="field"></app-string>
-    </ng-container>
+      <ng-container *ngIf="schema?.values?.id === 'boolean'">
+        <app-string [f]="f ? f.get('' + i) : null" [data]="field"></app-string>
+      </ng-container>
+    </div>
   </div>
 </ng-container>

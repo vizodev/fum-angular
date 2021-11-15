@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-organization-list-dialog',
@@ -6,24 +6,23 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./organization-list-dialog.component.scss'],
 })
 export class OrganizationListDialogComponent implements OnInit {
-  selected: any[] = [];
-  @Output() selectOrganizations = new EventEmitter();
   @Output() done = new EventEmitter();
+  @Output() cancelSelect = new EventEmitter();
+  @Input() selectedOrganizations: any;
+
   constructor() {}
 
   ngOnInit(): void {}
 
   onSelect(organizations: any) {
-    this.selected = organizations;
-    this.selectOrganizations.emit(this.selected);
+    this.selectedOrganizations = organizations;
   }
 
   cancel() {
-    this.selected = [];
-    this.selectOrganizations.emit(this.selected);
+    this.cancelSelect.emit();
   }
-  
-  close() {
-    this.done.emit();
+
+  finishSelect() {
+    this.done.emit(this.selectedOrganizations);
   }
 }

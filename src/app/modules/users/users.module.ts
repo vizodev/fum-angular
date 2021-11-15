@@ -13,6 +13,8 @@ import { TypesModule } from 'src/app/shared/components/types/types.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganizationListDialogComponent } from './dialogs/organization-list-dialog/organization-list-dialog.component';
 import { OrganizationListModule } from 'src/app/shared/components/organization-list/organization-list.module';
+import { TeamsListModule } from 'src/app/shared/components/teams-list/teams-list.module';
+import { TeamListDialogComponent } from './dialogs/team-list-dialog/team-list-dialog.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { OrganizationListModule } from 'src/app/shared/components/organization-l
     ViewComponent,
     EditComponent,
     OrganizationListDialogComponent,
+    TeamListDialogComponent
   ],
   imports: [
     CommonModule,
@@ -32,6 +35,7 @@ import { OrganizationListModule } from 'src/app/shared/components/organization-l
     FormsModule,
     ReactiveFormsModule,
     OrganizationListModule,
+    TeamsListModule
   ],
 })
 export class UsersModule {}

@@ -2,10 +2,6 @@
   [show]="isLoading"
   [center]="true"
 ></app-loading-indicator>
-<div class="row">
-  <div class="col-12 mb-4">
-    <div class="card card-small lo-stats">
-      <div class="card-body p-0">
         <table
           datatable
           [dtOptions]="dataTableOptions"
@@ -31,7 +27,7 @@
                 <input
                   style="width: 15px; height: 15px"
                   type="checkbox"
-                  
+                  id={{organization.id}}
                   (change)="
                     onSelectOrganization(
                       organization,
@@ -81,10 +77,7 @@
             </tr>
           </tbody>
         </table>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <!-- Delete Modal -->
 <div

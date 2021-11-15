@@ -1,6 +1,6 @@
 <div
   class="modal fade"
-  id="organizationsModal"
+  id="teamsModal"
   tabindex="-1"
   role="dialog"
   aria-hidden="true"
@@ -8,7 +8,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">organizations-list</h5>
+        <h5 class="modal-title">Teams-list</h5>
         <button
           type="button"
           class="close"
@@ -19,10 +19,10 @@
         </button>
       </div>
       <div class="modal-body p-0">
-        <app-organization-list
-          [selected]="selectedOrganizations"
-          (selectOrganizations)="onSelect($event)"
-        ></app-organization-list>
+        <app-teams-list
+          [selected]="selectedTeams"
+          (selectTeams)="onSelect($event)"
+        ></app-teams-list>
       </div>
       <div class="modal-footer">
         <button

@@ -35,6 +35,7 @@ export class ListComponent implements OnInit {
   ngOnDestroy(): void {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.userService.getUsers().subscribe((users) => (this.users = users));
     this.schema.schema.subscribe((data) => {
       this.userSchema = data.user;
